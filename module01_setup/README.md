@@ -1,1 +1,1 @@
-This folder serves to initialise the author's C++ project.
+This folder initialises the author's C++ project.<end>

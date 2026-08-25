@@ -2,11 +2,18 @@
 using namespace std;
 int main()
 {
-	cout<<"\nHello World!\nWelcome to Account Nexus!\n\n";
+	cout<<"\nWelcome to Account Nexus! This is a prototype.\n\n";
 
-	// menu template
+	//menu template
 	cout<<"\t\tMenu\n"<<string(38,'-')<<"\n";
-	cout<<"  i)\tTBD\n ii)\tTBD\niii)\tTBD\n iv)\tTBD\n  v)\texit";
-	cout<<"\n->";
-	cout<<"\n"<<string(38,'-');
+	cout<<"1) TBD\n2) TBD\n3) TBD\n4) TBD\n5) exit";
+	int input;cout<<"\n--> ";
+	cin>>input;
+	if(input==1){}
+	else if(input==2){}
+	else if(input==3){}
+	else if(input==4){}
+	else if(input==5){
+		cout<<"\nExiting...";
+		return 0;}
 }
