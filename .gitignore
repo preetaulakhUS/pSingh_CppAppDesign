@@ -1,0 +1,4 @@
+*.json
+.vscode
+module*/readme.md
+!module01_setup/readme.md
