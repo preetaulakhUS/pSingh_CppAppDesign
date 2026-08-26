@@ -1,1 +1,1 @@
-This folder initialises the author's C++ project.<end>
+This folder initialises the author's C++ project, id est, Acxus MS.<end>
