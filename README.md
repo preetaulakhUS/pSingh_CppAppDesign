@@ -6,10 +6,10 @@ Authored by: Preetinder Singh<br>
 Course:      CIS 25, Laney College<br>
 Date:        08/24/2026<br>
 IDE:         VSCode<br>
-App Name:    Acxus MS<br>
-App Intent:  Account Management Software<br>
+App Name:    Azimuth GX<br>
+App Intent:  Geographic Explorer, Distance Calculator, ETA Calculator<br>
 
-Description: The application is inspired by QuickBooks and TallyPrime, software that help maintain financial records and facilitate auditing. The application will utilise operators for calculations, loops for continuous use, and external file access to record and retrieve data from .txt files. The application will log transactions, including the names of the parties involved, the type of transaction, the amount exchanged, the tax imposed, the data and time at which the transaction occured, et cetera. The author's intention is to develop an application that will satisfy the requirements of the course while building an application that utilise, and thereby establishes a concrete understanding of, the concepts taught throughout the course.<br>
+Description: The application is inspired by Google Maps, software that helps in navigation. The application will utilise operators for calculations, loops for continuous use, and databases for location and transit information. The application will take the current and destination location to evaluate distance between the two or more locations, ETA to arrive to the location(s), suggestions for best means of transport in that given scenario, et cetera. The author's intention is to develop an application that will satisfy the requirements of the course while building an application that utilise, and thereby establishes a concrete understanding of, the concepts taught throughout the course.<br>
 
 Instruction: TBD<br>
-Completed:   [modules 01/15]<end>
+Completed:   [modules 02/15]<end>

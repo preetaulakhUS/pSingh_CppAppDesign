@@ -1,1 +1,1 @@
-This folder initialises the author's C++ project, id est, Acxus MS.<end>
+This folder initialises the author's C++ project, id est, Azimuth GX - Geographic Explorer. The gxMenu.h file has been included to utilise the menu template.
