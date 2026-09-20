@@ -1,0 +1,1 @@
+This module invites the reader to bear witness to the implementation of the switch case function to create an intricate menu template for the application. The gxVariables.h file has been included from module 03 to utilised the variables initialised therein.

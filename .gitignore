@@ -1,6 +1,2 @@
 *.json
 .vscode
-module*/readme.md
-!module01_setup/readme.md
-!modulo02_menu/readme.md
-!modulo03_variables/readme.md

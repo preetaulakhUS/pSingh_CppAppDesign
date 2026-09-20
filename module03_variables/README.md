@@ -1,0 +1,1 @@
+This module initialises variables for the use of the main program. More variables may be added in the future per requirement.
