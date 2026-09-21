@@ -2,7 +2,7 @@
 #include "../module03_variables/gxVariables.h"
 using namespace std;
 
-short i=1;
+bool running=true;
 void mainMenu(){
 	do{
 		system("cls");
@@ -29,14 +29,13 @@ void mainMenu(){
 			system("pause");break;
 			
 			case 5:
-			cout<<"Goodbye!"<<endl;system("pause");i=0;break;
+			cout<<"Goodbye!"<<endl;system("pause");running=false;break;
 
 			//? beta testing module 03
 			case 0:{
 			Location loc;loc.printIL();loc.printDL();
 			}
 
-			
 			default:break;
 		}
 		// if(input==1){}
@@ -48,5 +47,5 @@ void mainMenu(){
 		// 	cout<<"\nGoodbye!";
 		// 	cin>>input;
 		// 	return 0;}
-	} while(i);
+	} while(running);
 }
