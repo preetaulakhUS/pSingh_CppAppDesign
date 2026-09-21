@@ -1,0 +1,1 @@
+This module focuses on showing the record entries of the bay area city database initialised in module 04.
