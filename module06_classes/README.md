@@ -1,0 +1,1 @@
+This module concerns itself with classes and objects. The classObjectTest.cpp is for testing purposes.

@@ -7,7 +7,7 @@ void mainMenu(){
 	do{
 		system("cls");
 		cout<<string(38,'-')<<"\n\t\tMenu\n"<<string(38,'-')<<"\n";
-		cout<<"1) Initiate Analysis\n2) View Map\n3) Help\n4) Settings\n5) Exit\n0) Beta Testing";
+		cout<<"1) Initiate Analysis\n2) View Map\n3) Help\n4) Settings\n5) Exit";
 		int input;cout<<"\n==> ";
 		cin>>input;
 		system("cls");
@@ -30,11 +30,6 @@ void mainMenu(){
 			
 			case 5:
 			cout<<"Goodbye!"<<endl;system("pause");running=false;break;
-
-			//? beta testing module 03
-			case 0:{
-			Location loc;loc.printIL();loc.printDL();
-			}
 
 			default:break;
 		}

@@ -1,56 +1,47 @@
 #include <iostream>
 using namespace std;
 
-class EssentialVariables{
-    protected:
-        double latitude, longitude, distance;
-        unsigned int streetNumber, zipCode;
-        string street, city;
-    //? means of transportation
-    public:
-        bool drive, bus, walk;
-}; using EssVar=EssentialVariables;
+string appName="Azimuth GX";
+string appTagline="Geographic Explorer";
+double appVersion=4.1;
 
-class Location:protected EssVar{
-    public:
-        //? get Initial Location
-        tuple<unsigned int, string, string, unsigned int> getIL(){
-            cout<<"Please enter your location.\n";
-            cout<<"Street Number: ";cin>>streetNumber;
-            cin.ignore();
-            cout<<"Street Name: ";getline(cin, street);
-            cout<<"City: ";getline(cin, city);
-            cout<<"Zip Code: ";cin>>zipCode;
-            system("pause");system("cls");
-            return {streetNumber, street, city, zipCode};
-        };
+//? fetch user's name
+string userName;
 
-        void printIL(){
-            auto loc=getIL();
-            cout<<"Your location is "<<get<0>(loc)<<" "<<get<1>(loc)<<", "<<get<2>(loc)<<", "<<get<3>(loc)<<"."<<endl;system("pause");system("cls");
-        };
+//? database status
+bool databaseLoaded=false;
+int loadedCityCount=0;
 
-        //? get Destination Location
-        tuple<unsigned int, string, string, unsigned int> getDL(){
-            cout<<"Please enter the destination.\n";
-            cout<<"Street Number: ";cin>>streetNumber;
-            cin.ignore();
-            cout<<"Street Name: ";getline(cin, street);
-            cout<<"City: ";getline(cin, city);
-            cout<<"Zip Code: ";cin>>zipCode;
-            system("pause");system("cls");
-            return {streetNumber, street, city, zipCode};
-        };
+//? trip status
+double tripDistance=0.0;
+char unit='k';        // km: kilometres, mi: miles
+float walkSpeed=4.8f; // km/h
 
-        void printDL(){
-            auto loc=getDL();
-            cout<<"The destination is "<<get<0>(loc)<<" "<<get<1>(loc)<<", "<<get<2>(loc)<<", "<<get<3>(loc)<<"."<<endl;system("pause");system("cls");
-        }
-};
+void welcomeScreen(){
+	system("cls");
+	cout<<string(32,'-')<<"\n\t"<<appName<<"\n"<<string(32,'-')<<"\n";
+	cout<<"Version "<<appVersion<<" | "<<appTagline<<endl;
+	cout<<string(32,'-')<<"\n";
+	if (userName.empty()){
+		cout<<"May I have your name? \n-> ";
+		getline(cin,userName);
+	}
+	cout<<"\nHello, "<<userName<<".\n";
+	system("pause");system("cls");
+}
 
-// class KowalskiAnalysis:protected EssVar{
-    
-//     // todo: check database to find latitude and longitude to calculate disantce.
-
-//     // todo: check means of transportation to calculate ETA.
-// };
+//? display all variables
+void printVariables(){
+	system("cls");
+	cout<<"=== SESSION VARIABLES ===\n";
+	cout<<"appName (string): "<<appName<<endl;
+	cout<<"appTagline (string): "<<appTagline<<endl;
+	cout<<"appVersion (double): "<<appVersion<<endl;
+	cout<<"userName (string): "<<userName<<endl;
+	cout<<"databaseLoaded (bool): "<<(databaseLoaded?"true":"false")<<endl;
+	cout<<"loadedCityCount (int): "<<loadedCityCount<<endl;
+	cout<<"tripDistance (double): "<<tripDistance<<endl;
+	cout<<"unit (char): "<<unit<<endl;
+	cout<<"walkSpeed (float): "<<walkSpeed<<endl;
+	system("pause");system("cls");
+}
