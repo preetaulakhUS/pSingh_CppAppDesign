@@ -1,1 +1,1 @@
-This module aims to implement security protocols and permission based access.
+This module aims to implement security protocols and permission based access. Also implements binary search.
