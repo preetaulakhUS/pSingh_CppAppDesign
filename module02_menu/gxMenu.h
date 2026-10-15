@@ -1,5 +1,5 @@
 #include <iostream>
-#include "../module03_variables/gxVariables.h"
+#include "gxMap.h"
 using namespace std;
 
 bool running=true;
@@ -17,8 +17,7 @@ void mainMenu(){
 			system("pause");break;
 
 			case 2:
-			cout<<"You're attempting to view map. This feature is currently under development."<<endl;
-			system("pause");break;
+			viewMap();break;
 
 			case 3:
 			cout<<"This section is meant to understand the features and utilisation of this application. It is currently under development."<<endl;
@@ -33,14 +32,5 @@ void mainMenu(){
 
 			default:break;
 		}
-		// if(input==1){}
-		// else if(input==2){}
-		// else if(input==3){}
-		// else if(input==4){}
-		// else if(input==5){
-		// 	system("cls");
-		// 	cout<<"\nGoodbye!";
-		// 	cin>>input;
-		// 	return 0;}
 	} while(running);
 }

@@ -17,18 +17,6 @@ double tripDistance=0.0;
 char unit='k';        // km: kilometres, mi: miles
 float walkSpeed=4.8f; // km/h
 
-void welcomeScreen(){
-	system("cls");
-	cout<<string(32,'-')<<"\n\t"<<appName<<"\n"<<string(32,'-')<<"\n";
-	cout<<"Version "<<appVersion<<" | "<<appTagline<<endl;
-	cout<<string(32,'-')<<"\n";
-	if (userName.empty()){
-		cout<<"May I have your name? \n-> ";
-		getline(cin,userName);
-	}
-	cout<<"\nHello, "<<userName<<".\n";
-	system("pause");system("cls");
-}
 
 //? display all variables
 void printVariables(){

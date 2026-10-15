@@ -1,5 +1,5 @@
 #include <iostream>
-#include "../module04_database/gxDatabase.h"
+#include "../module05_functions/gxFunctions.h"
 using namespace std;
 
 class Location{
@@ -8,6 +8,11 @@ class Location{
 		double latitude, longitude;
 		int population;
 		double density;
+		Vector3D position;
+
+		void updatePosition(){
+			position=toCartesian(latitude,longitude);
+		}
 
 	public:
 		//? empty constructor
@@ -15,6 +20,7 @@ class Location{
 			city="";county="";
 			latitude=0.0;longitude=0.0;
 			population=0;density=0.0;
+			position=Vector3D();
 		}
 
 		//? parameterised
@@ -22,12 +28,13 @@ class Location{
 			this->city=city;this->county=county;
 			this->latitude=latitude;this->longitude=longitude;
 			this->population=population;this->density=density;
+			updatePosition();
 		}
 
 		//? setters
 		void setCity(string city){this->city=city;}
 		void setCounty(string county){this->county=county;}
-		void setCoordinates(double latitude,double longitude){this->latitude=latitude;this->longitude=longitude;}
+		void setCoordinates(double latitude,double longitude){this->latitude=latitude;this->longitude=longitude;updatePosition();}
 		void setPopulation(int population){this->population=population;}
 		void setDensity(double density){this->density=density;}
 
@@ -38,6 +45,7 @@ class Location{
 		double getLongitude(){return longitude;}
 		int getPopulation(){return population;}
 		double getDensity(){return density;}
+		Vector3D getPosition(){return position;}
 
 		//? loader
 		bool load(string cityName){
@@ -54,6 +62,7 @@ class Location{
 						longitude=cities[c][i].longitude;
 						population=cities[c][i].population;
 						density=cities[c][i].density;
+						updatePosition();
 						return true;
 					}
 				}
@@ -70,5 +79,7 @@ class Location{
 			cout<<"\tDensity: "<<density<<" people/km^2"<<endl;
 		}
 
-		// todo implementation of vector space operations. (lat, lon) will be the position of the object.
+		//? vector arithmetic
+		Vector3D displacementTo(Location target){return target.getPosition().subtract(position);}
+		double distanceTo(Location target){return calculateDistance(position,target.getPosition());}
 };

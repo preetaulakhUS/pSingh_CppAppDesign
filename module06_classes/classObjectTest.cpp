@@ -1,15 +1,10 @@
 #include <iostream>
 #include "gxClasses.h"
-#include "../module03_variables/gxVariables.h"
 
 using namespace std;
 int main()
 {
 	loadDB();
-	databaseLoaded=true;
-	loadedCityCount=iAL+iCC+iSF+iSM+iSC;
-
-	welcomeScreen();
 	printVariables();
 
 	//? class example
@@ -37,7 +32,13 @@ int main()
 	copiedLocation.setDensity(currentLocation.getDensity());
 	copiedLocation.print("Copied location");
 
-	// todo get distance between locations using vector space implementation.
+	//? vector space distance (Math 3C / 3E)
+	tripDistance=currentLocation.distanceTo(destinationLocation);
+	Vector3D disp=currentLocation.displacementTo(destinationLocation);
+	cout<<"\n=== VECTOR ANALYSIS ===\n";
+	cout<<"Displacement Vector <dx, dy, dz>: <"<<disp.x<<", "<<disp.y<<", "<<disp.z<<">\n";
+	cout<<"Chord Distance: "<<disp.norm()<<" km\n";
+	cout<<"Surface Arc Distance: "<<tripDistance<<" km\n";
 
 	system("pause");
 }
