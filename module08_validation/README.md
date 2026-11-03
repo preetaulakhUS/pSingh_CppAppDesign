@@ -1,0 +1,1 @@
+This module introduces input validation and data protection.

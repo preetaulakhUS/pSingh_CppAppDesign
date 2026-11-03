@@ -72,14 +72,83 @@ class Location{
 
 		//? printer
 		void print(string label){
-			cout<<label<<": "<<city<<", "<<county<<" County\n";
-			cout<<"\tLatitude: "<<latitude<<"\n";
-			cout<<"\tLongitude: "<<longitude<<"\n";
-			cout<<"\tPopulation: "<<population<<"\n";
-			cout<<"\tDensity: "<<density<<" people/km^2"<<endl;
+			cout<<cH<<"  ["<<label<<"] "<<cWh<<city<<cD<<", "<<county<<" County\n";
+			cout<<cD<<"    * Coordinates : "<<cWh<<latitude<<" N, "<<longitude<<" W\n";
+			cout<<cD<<"    * Population  : "<<cC<<population<<" residents\n";
+			cout<<cD<<"    * Density     : "<<cWh<<density<<" people/km^2"<<cR<<"\n";
 		}
 
 		//? vector arithmetic
 		Vector3D displacementTo(Location target){return target.getPosition().subtract(position);}
 		double distanceTo(Location target){return calculateDistance(position,target.getPosition());}
 };
+
+//? compare two cities by distance
+void compareCities(){
+    cout<<cH<<"Enter first city name: "<<cR;
+    string name1;getline(cin,name1);
+    capitalise(&name1);
+    cout<<cH<<"Enter second city name: "<<cR;
+    string name2;getline(cin,name2);
+    capitalise(&name2);
+    Location loc1,loc2;
+    if (!loc1.load(name1)){cout<<cA<<"City \""<<name1<<"\" not found in records.\n"<<cR;system("pause");return;}
+    if (!loc2.load(name2)){cout<<cA<<"City \""<<name2<<"\" not found in records.\n"<<cR;system("pause");return;}
+    
+    cout<<"\n"<<cB<<string(50,'=')<<cR<<"\n";
+    cout<<cH<<"                  TRIP ANALYSIS"<<cR<<"\n";
+    cout<<cB<<string(50,'=')<<cR<<"\n\n";
+
+    loc1.print("Origin");
+    cout<<"\n";
+    loc2.print("Destination");
+    cout<<"\n";
+
+    // check if straight line crosses the SF Bay line
+    bool crossBay=crossesBayWater(loc1.getLatitude(),loc1.getLongitude(),loc2.getLatitude(),loc2.getLongitude());
+
+    double directDist=loc1.distanceTo(loc2);
+    cout<<cD<<"Direct Distance : "<<cWh<<directDist<<" km"<<cR<<"\n\n";
+
+    if (crossBay){
+        // condition to check which path is quicker
+        Location sj, rich, sf;
+        sj.load("San Jose");
+        rich.load("Richmond");
+        sf.load("San Francisco");
+
+        double southDist=loc1.distanceTo(sj)+sj.distanceTo(loc2);
+        double northDist;
+        if (loc1.getLongitude()>loc2.getLongitude())
+            northDist=loc1.distanceTo(rich)+rich.distanceTo(sf)+sf.distanceTo(loc2);
+        else
+            northDist=loc1.distanceTo(sf)+sf.distanceTo(rich)+rich.distanceTo(loc2);
+
+        double walkDist;
+        string viaDesc;
+        if (northDist<southDist){
+            walkDist=northDist;
+            viaDesc="North Bypass (San Francisco and Richmond)";
+        } else {
+            walkDist=southDist;
+            viaDesc="South Bypass (San Jose)";
+        }
+
+        int walkHrs=(int)(walkDist/walkSpeed);
+        int walkMins=(int)((walkDist/walkSpeed-walkHrs)*60);
+
+        cout<<cD<<"Route           : "<<cW<<"Water Crossing (SF Bay)"<<cR<<"\n";
+        cout<<cD<<"Optimal Bypass  : "<<cWh<<viaDesc<<cR<<"\n";
+        cout<<cD<<"Walking Distance: "<<cWh<<walkDist<<" km"<<cR<<"\n";
+        cout<<cD<<"Estimated Time  : "<<cC<<walkHrs<<" h "<<walkMins<<" min "<<cD<<"("<<walkSpeed<<" km/h)"<<cR<<"\n";
+        cout<<cD<<"Detour Added    : "<<cT<<"+"<<(walkDist-directDist)<<" km "<<cD<<"(land bypass around water)"<<cR<<"\n\n";
+    } else {
+        int hrs=(int)(directDist/walkSpeed);
+        int mins=(int)((directDist/walkSpeed-hrs)*60);
+        cout<<cD<<"Route           : "<<cC<<"No Water Crossing"<<cR<<"\n";
+        cout<<cD<<"Walking Distance: "<<cWh<<directDist<<" km"<<cR<<"\n";
+        cout<<cD<<"Estimated Time  : "<<cC<<hrs<<" h "<<mins<<" min "<<cD<<"("<<walkSpeed<<" km/h)"<<cR<<"\n\n";
+    }
+    cout<<cB<<string(50,'=')<<cR<<"\n";
+    system("pause");
+}

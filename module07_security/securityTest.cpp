@@ -1,9 +1,9 @@
 #include <iostream>
-#include "gxSecurity.h"
+#include "../module08_validation/gxValidation.h"
 using namespace std;
 
-// demo records
-City demoRecords[10]={
+// demo entries
+City demoEntries[10]={
 	{"Berkeley",37.87,-122.27,120257,4450.9,"94704"},
 	{"Fremont",37.52,-121.98,228295,1128.6,"94536"},
 	{"Oakland",37.79,-122.21,439418,3031.6,"94607"},
@@ -18,13 +18,11 @@ Admin demoAdmin("Dr. Singh","admin999");
 void testLoginLockout(){
 	system("cls");
 	cout<<"Login Lockout Test\n";
-	string name, pass;
-	cout<<"Enter username: ";cin>>name;
+	string name=getString("Enter username: ");
 	RegularUser testUser(name,"secret");
 	cout<<"(Hint: correct password is 'secret')\n";
 	for (int i=0;i<4;i++){
-		cout<<"Enter password attempt "<<(i+1)<<": ";
-		cin>>pass;
+		string pass=getString("Enter password attempt "+to_string(i+1)+": ");
 		bool ok=testUser.tryLogin(pass);
 		if (ok) break;
 	}
@@ -34,8 +32,8 @@ void testLoginLockout(){
 void testRolePermissions(){
 	system("cls");
 	cout<<"Role Permissions Test\n";
-	cout<<"Select role to test:\n1) Regular User\n2) Admin\n==> ";
-	int choice;cin>>choice;
+	cout<<"Select role to test:\n1) Regular User\n2) Admin\n";
+	int choice=getInt("==> ",1,2);
 	User *u;
 	if (choice==1) u=&demoRegular;
 	else u=&demoAdmin;
@@ -43,26 +41,22 @@ void testRolePermissions(){
 	cout<<"  canView:   "<<(u->canView()?"yes":"no")<<"\n";
 	cout<<"  canAdd:    "<<(u->canAdd()?"yes":"no")<<"\n";
 	cout<<"  canDelete: "<<(u->canDelete()?"yes":"no")<<"\n";
-	string searchName;
-	cout<<"Enter a city name to view (e.g. Oakland (case sensitive)): ";
-	cin.ignore();getline(cin,searchName);
-	int idx=binarySearchCity(demoRecords,demoCount,searchName);
-	if (idx!=-1) u->viewRecord(demoRecords[idx]);
-	else cout<<"City not found in demo records.\n";
+	string searchName=getString("Enter a city name to view (e.g. Oakland): ");
+	int idx=binarySearchCity(demoEntries,demoCount,searchName);
+	if (idx!=-1) u->viewRecord(demoEntries[idx]);
+	else cout<<"City not found in demo entries.\n";
 	system("pause");
 }
 
 void testBinarySearch(){
 	system("cls");
-	cout<<"City Binary Search Test\n";
-	cout<<"Demo records (sorted):\n";
-	for (int i=0;i<demoCount;i++) cout<<"  "<<demoRecords[i].name<<"\n";
-	string target;
-	cout<<"Enter city name to search: ";
-	cin.ignore();getline(cin,target);
-	int idx=binarySearchCity(demoRecords,demoCount,target);
+	cout<<"Entry Binary Search Test\n";
+	cout<<"Demo entries:\n";
+	for (int i=0;i<demoCount;i++) cout<<"  "<<demoEntries[i].name<<"\n";
+	string target=getString("Enter city name to search: ");
+	int idx=binarySearchCity(demoEntries,demoCount,target);
 	if (idx!=-1)
-		cout<<"Found '"<<target<<"' at index "<<idx<<" | population: "<<demoRecords[idx].population<<"\n";
+		cout<<"Found '"<<target<<"' at index "<<idx<<" | pop: "<<demoEntries[idx].population<<"\n";
 	else
 		cout<<"'"<<target<<"' not found.\n";
 	system("pause");
@@ -71,33 +65,28 @@ void testBinarySearch(){
 void testAdminActions(){
 	system("cls");
 	cout<<"Admin Add & Delete Test\n";
-	City localRecords[10];
+	City localEntries[10];
 	int localCount=demoCount;
-	for (int i=0;i<demoCount;i++) localRecords[i]=demoRecords[i];
+	for (int i=0;i<demoCount;i++) localEntries[i]=demoEntries[i];
 
 	cout<<"Current entries:\n";
-	for (int i=0;i<localCount;i++) cout<<"  "<<localRecords[i].name<<"\n";
+	for (int i=0;i<localCount;i++) cout<<"  "<<localEntries[i].name<<"\n";
 
-	string newName;
-	cout<<"\nEnter city name to add: ";
-	cin.ignore();getline(cin,newName);
 	City newCity;
-	newCity.name=newName;
-	cout<<"Enter population: ";cin>>newCity.population;
-	cout<<"Enter density: ";cin>>newCity.density;
-	newCity.latitude=0;newCity.longitude=0;newCity.zips="null";
+	newCity.name=getString("\nEnter city name to add: ");
+	newCity.population=getInt("Enter population: ",1,99999999);
+	newCity.density=getDouble("Enter density (people/km^2): ",0.1,99999.9);
+	newCity.latitude=0;newCity.longitude=0;newCity.zips="N/A";
 
-	demoAdmin.addRecord(localRecords,localCount,10,newCity);
-	sortCitiesByName(localRecords,localCount);
+	demoAdmin.addRecord(localEntries,localCount,10,newCity);
+	sortCitiesByName(localEntries,localCount);
 	cout<<"Updated entries:\n";
-	for (int i=0;i<localCount;i++) cout<<"  "<<localRecords[i].name<<"\n";
+	for (int i=0;i<localCount;i++) cout<<"  "<<localEntries[i].name<<"\n";
 
-	string delName;
-	cout<<"\nEnter city name to delete: ";
-	cin.ignore();getline(cin,delName);
-	demoAdmin.deleteRecord(localRecords,localCount,delName);
+	string delName=getString("\nEnter city name to delete: ");
+	demoAdmin.deleteRecord(localEntries,localCount,delName);
 	cout<<"Updated entries:\n";
-	for (int i=0;i<localCount;i++) cout<<"  "<<localRecords[i].name<<"\n";
+	for (int i=0;i<localCount;i++) cout<<"  "<<localEntries[i].name<<"\n";
 	system("pause");
 }
 
@@ -108,8 +97,7 @@ void testIntBinarySearch(){
 	cout<<"Sorted IDs: ";
 	for (int i=0;i<7;i++) cout<<ids[i]<<" ";
 	cout<<"\n";
-	int target;
-	cout<<"Enter an ID to search: ";cin>>target;
+	int target=getInt("Enter an ID to search: ",1,999999);
 	int idx=binarySearch(ids,7,target);
 	if (idx!=-1) cout<<"Found "<<target<<" at index "<<idx<<"\n";
 	else cout<<target<<" not in list.\n";
@@ -118,7 +106,7 @@ void testIntBinarySearch(){
 
 int main(){
 	loadDB();
-	int i;
+	int choice;
 	do {
 		system("cls");
 		cout<<"Module 07 Test\n";
@@ -128,8 +116,8 @@ int main(){
 		cout<<"4) Admin add & delete\n";
 		cout<<"5) Binary search (integers)\n";
 		cout<<"0) Exit\n";
-		cout<<"==> ";cin>>i;
-		switch(i){
+		choice=getInt("==> ",0,5);
+		switch(choice){
 			case 1: testLoginLockout(); break;
 			case 2: testRolePermissions(); break;
 			case 3: testBinarySearch(); break;
@@ -138,5 +126,5 @@ int main(){
 			case 0: break;
 			default: break;
 		}
-	} while(i!=0);
+	} while(choice!=0);
 }

@@ -1,9 +1,9 @@
 #include <iostream>
 #include <sstream>
-#include "../module07_security/gxSecurity.h"
+#include "../module08_validation/gxValidation.h"
 using namespace std;
 
-//? variables and abbreviations
+//? variables
 int mapHeight=26;	int mH=mapHeight;
 int mapWidth=75;	int mW=mapWidth;
 
@@ -11,13 +11,6 @@ double minimumLatitude=37.0046;		double minLat=minimumLatitude;
 double maximumLatitude=38.0519;		double maxLat=maximumLatitude;
 double minimumLongitude=-122.5036;	double minLng=minimumLongitude;
 double maximumLongitude=-121.5854;	double maxLng=maximumLongitude;
-
-//? ANSI colours
-string colorReset="\033[0m";	string cR=colorReset;	// default
-string colorWater="\033[94m";	string cW=colorWater;	// blue
-string colorCity="\033[92m";	string cC=colorCity;	// green
-string colorTag="\033[1;93m";	string cT=colorTag;		// yellow
-string colorBorder="\033[36m";	string cB=colorBorder;	// cyan
 
 void projectCoordinates(double lat,double lng,int *r,int *c){
 	*r=(int)((maxLat-lat)/(maxLat-minLat)*(mH-1));
@@ -88,7 +81,7 @@ void renderMap(string revealedList[],int revealedCount){
 
 	//? display map
 	cout<<cB<<string(mW+4,'=')<<cR<<"\n";
-	cout<<cB<<"|\t\t"<<cR<<"AZIMUTH GX - BAY AREA GEOGRAPHIC MAP ("<<loadedCityCount<<" CITIES)"<<cB<<"\t\t|\n"<<cR;
+	cout<<cB<<"|\t\t   "<<cR<<"BAY AREA MAP ("<<loadedCityCount<<" CITIES)"<<cB<<"\t\t   |\n"<<cR;
 	cout<<cB<<string(mW+4,'=')<<cR<<"\n";
 
 	for (int r=0;r<mH;r++){
@@ -115,7 +108,7 @@ void viewMap(){
 		renderMap(revealedCities,revealedCount);
 
 		if (revealedCount>0){
-			cout<<"\n--- REVEALED LOCATIONS ("<<revealedCount<<") ---\n";
+			cout<<"\n=== REVEALED LOCATIONS ("<<revealedCount<<") ===\n";
 			for (int i=0;i<revealedCount;i++){
 				Location loc;
 				if (loc.load(revealedCities[i])){

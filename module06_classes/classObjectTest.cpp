@@ -32,7 +32,7 @@ int main()
 	copiedLocation.setDensity(currentLocation.getDensity());
 	copiedLocation.print("Copied location");
 
-	//? vector space distance (Math 3C / 3E)
+	//? vector space distance
 	tripDistance=currentLocation.distanceTo(destinationLocation);
 	Vector3D disp=currentLocation.displacementTo(destinationLocation);
 	cout<<"\n=== VECTOR ANALYSIS ===\n";
